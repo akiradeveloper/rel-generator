@@ -1,0 +1,4 @@
+requests
+beautifulsoup4
+mecab-python3
+sklearn

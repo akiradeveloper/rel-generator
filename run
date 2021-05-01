@@ -1,0 +1,1 @@
+docker run --rm -v ${PWD}/out:/out -v ${PWD}/in:/in rel_generator $@
