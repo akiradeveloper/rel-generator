@@ -15,6 +15,7 @@ for i in os.listdir("/out/stage1"):
 
 # mecab = MeCab.Tagger("-Owakati")
 mecab = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
+mecab.parse('')
 def wakachi(text):
     node = mecab.parseToNode(text)
     nouns = []
