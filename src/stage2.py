@@ -29,7 +29,7 @@ def vecs_array(documents):
     from sklearn.feature_extraction.text import TfidfVectorizer
  
     docs = np.array(documents)
-    vectorizer = TfidfVectorizer(analyzer=wakachi,binary=True,use_idf=False)
+    vectorizer = TfidfVectorizer(analyzer=wakachi)
     vecs = vectorizer.fit_transform(docs)
     return vecs.toarray()
 
