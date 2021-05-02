@@ -25,7 +25,7 @@ def wakachi(text):
         if features[0] == '名詞' and features[1] == '固有名詞':
             nouns.append(term)
         node = node.next
-    print(nouns)
+    # print(nouns)
     return nouns
 
 # from janome.tokenizer import Tokenizer
