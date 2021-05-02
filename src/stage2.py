@@ -20,12 +20,12 @@ def wakachi(text):
     node = mecab.parseToNode(text)
     nouns = []
     while node:
-        hinshi =  node.feature.split(',')[0]
+        features =  node.feature.split(',')
         term = node.surface
-        if hinshi == '名詞':
+        if features[0] == '名詞' and features[1] == '固有名詞':
             nouns.append(term)
         node = node.next
-    # print(nouns)
+    print(nouns)
     return nouns
 
 # from janome.tokenizer import Tokenizer
