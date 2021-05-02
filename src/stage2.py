@@ -1,6 +1,7 @@
 import os
 import MeCab
 import numpy as np
+import json
 
 os.environ["MECABRC"] = "/etc/mecabrc"
 
@@ -47,6 +48,14 @@ if __name__ == '__main__':
     #小数点3桁まで計算
     cs_array = np.round(cosine_similarity(vecs_array(docs), vecs_array(docs)), 3)
     print(cs_array)
-    
 
+    n = len(docs)
+    mat = [[0.0 for i in range(n)] for j in range(n)]
+    for i in range(n):
+        for j in range(n):
+            mat[i][j] = cs_array[i,j]
+
+    f = open(f"/out/stage2/out.json", 'w')
+    json.dump(mat, f)
+    f.close()
     
