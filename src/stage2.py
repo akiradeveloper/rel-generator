@@ -13,17 +13,28 @@ for i in os.listdir("/out/stage1"):
 
 # print(ii)
 
-mecab = MeCab.Tagger("-Owakati")
-
+# mecab = MeCab.Tagger("-Owakati")
+mecab = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
 def wakachi(text):
     node = mecab.parseToNode(text)
     nouns = []
     while node:
-        features =  node.feature.split(',')
-        if features[0] == '名詞' and features[1] == '一般':
-            nouns.append(node.surface)
+        hinshi =  node.feature.split(',')[0]
+        term = node.surface
+        if hinshi == '名詞':
+            nouns.append(term)
         node = node.next
+    # print(nouns)
     return nouns
+
+# from janome.tokenizer import Tokenizer
+# janome = Tokenizer()
+# def wakachi(text):
+#     tokens = janome.tokenize(text)
+#     docs=[]
+#     for token in tokens:
+#         docs.append(token.surface)
+#     return docs
 
 def vecs_array(documents):
     from sklearn.feature_extraction.text import TfidfVectorizer
