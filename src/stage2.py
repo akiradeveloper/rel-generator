@@ -40,10 +40,20 @@ def wakachi(text):
 def vecs_array(documents):
     from sklearn.feature_extraction.text import TfidfVectorizer
  
+    n = len(documents)
     docs = np.array(documents)
-    vectorizer = TfidfVectorizer(analyzer=wakachi)
-    vecs = vectorizer.fit_transform(docs)
-    return vecs.toarray()
+    vectorizer = TfidfVectorizer(analyzer=wakachi, max_df=0.8)
+    X = vectorizer.fit_transform(docs)
+
+    words = vectorizer.get_feature_names()
+    for doc_id, vec in zip(range(len(docs)), X.toarray()):
+        f = open(f"/out/stage2/{doc_id}", 'w')
+        for w_id, tfidf in sorted(enumerate(vec), key=lambda x: x[1], reverse=True):
+            lemma = words[w_id]
+            f.write('{0:s}: {1:f}\n'.format(lemma, tfidf))
+        f.close()
+
+    return X.toarray()
 
 if __name__ == '__main__':
     from sklearn.metrics.pairwise import cosine_similarity
@@ -58,7 +68,7 @@ if __name__ == '__main__':
 
     #類似度行列作成
     #小数点3桁まで計算
-    cs_array = np.round(cosine_similarity(vecs_array(docs), vecs_array(docs)), 3)
+    cs_array = np.round(cosine_similarity(vecs_array(docs)), 3)
     print(cs_array)
 
     n = len(docs)
